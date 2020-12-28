@@ -1,0 +1,128 @@
+##############################################################
+# On Realistically Attacking Tor with Website Fingerprinting #
+##############################################################
+prove attackable on real world
+test ccs 2014
+- KNN
+- freshness, update dataset
+- browser behavior(easy to train, few data)
+- multitab
+	- time-consuming
+	- methods:
+		- first split
+		- split detection
+		- split finding
+		- classification
+- noise removal : 10GB file or audio, high randomness
+
+sensitive website
+直接抓cell而不是封包，tcpdump只能抓到封包
+page from reference 22
+open world evaluation
+training set update method (freshness)
+
+- tor cell logs???
+
+############
+# ccs 2014 #
+############
+Assumption
+- close/open world
+- browsing behavior(multi-tab, not homepage)
+- page load parsing, noise, replicability(tbb,config...)
+- time analysis(content changes)
+
+BDR for validation(base-rate-fallacy)
+- inner page detection/classification(user browsing habits) **
+- open world evaluation(BDR)
+- ALAD Dataset(更是一般使用者的瀏覽狀況)
+- time analysis(lack of freshness): 可以藉由freshness來討論實際上需要的train cost
+- browsing habit not handle(open world, not browsing homepage)
+- multi-tab測試： 拿single tab的model去測multi-tab，測出其中其一就算合格
+
+##############
+# conclusion #
+##############
+- proof freshness( update dataset ) can somehow solve retrain issue, data collection cost down
+	- consistency, relevance
+	- evaluation
+- proof time-based feature not work
+- content change對website的影響(新增圖片或文字是否對整體有很大的影響，那問題好解決)
+- train by part of traffic/ or with noise
+- handle multi-tab / noise是否是website fingerprint目前最大難關
+	- 是否能取機率最高兩網站來判斷multi-tab(設threshold)
+- non-supervise分析網站間彼此feature距離
+- classify tbb version user is using
+
+###################
+# data collection #
+###################
+- tor ack/syn sendme removal
+
+##############
+# motivation #
+##############
+ccs 2014 outdated analysis
+re-evaluate the current situation of WF attack
+- new attack evaluation
+- what is the biggest gap between real world & lab work
+- evaluate if there is unreasonable assumption nowadays
+- The solution for former assumption mentioned in ccs 2014(新方法是否能解決以前的assumption)
+	- freshness mitigate cost
+	- tbb version classify
+	- multi-tab attack(splitting attack), cost
+- summary of features/ attack/ defense progress
+- deeper evaluation of some point
+	- cost evaluation: freshness mitigate data collection cost)
+	- user behavior: multi-tab(apply splitting attack) noise evaluation
+- try clustering websites(non-supervise) -> perform two step attack
+- try to proof DL doesn't work
+	- easy to construct adverseral samples(李鴻毅video,利用content change來達成，新增圖片或文字的影響)
+
+- provide a guildeline for evaluation
+
+Time analysis(freshness, update dataset), freshness evaluation, freshness methodology, 如何決定consistency,之類的值
+提供evaluation的準則
+- 整理各種feature / 攻擊、防禦手段
+- 提供目前攻擊不合理的原因
+	- open world, time analysis
+	- non-target attack 或者learn使用者的setting
+	- DL本身限制
+	- multi-tab noise
+- 如何來evaluate這些攻擊效果
+- 提出目前攻擊的流程
+
+#########
+# works #
+#########
+data collection
+- single tab
+- multi-tab(triple-tab.....)
+- single tab every week
+- probably different tbb version
+
+
+#########
+# notes #
+#########
+http://okapp.blogspot.com/2014/12/proxychain-torip-scanning.html
+proxychains 優勢： 可以方便各種tcp stream(不限定要網站瀏覽)才能達到匿名
+他可以結合tor，使任何服務都達到匿名效果
+nmap -> proxychains(SOCK5) -> tor  匿名掃port(直接用torbrowser不能達到此效果)
+
+
+##########
+# target #
+##########
+1. tbb 版本不同的結果(proof of effectiveness untarget attack)
+2. tor guard node掌控，tor bridge附近intercept
+
+time-based feature分部的分析 -> 看不同traffic的time-based有沒有什麼樣的分佈
+
+cluster the webpage: news, static page or etc. Try to figure out what kinds of website user is visiting.
+
+cost evaluation: webpages changes(record html)
+
+Figure out the end of a page load(network jitter info)
+
+few instance high accuracy(real time testing, test if the webpages )
