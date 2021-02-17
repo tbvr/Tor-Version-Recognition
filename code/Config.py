@@ -4,8 +4,8 @@ import tempfile
 #############
 # tor setup #
 #############
-driverpath = "/root/nslab/torbrowser_752"	# TBB browser path
-TorProxypath = "/root/nslab/torbrowser_752"	# Tor proxy path
+driverpath = "/root/nslab/torbrowser_902"	# TBB browser path
+TorProxypath = "/root/nslab/torbrowser_902"	# Tor proxy path
 DEFAULT_TOR_BINARY_PATH = join(driverpath,"Browser/TorBrowser/Tor/tor")
 
 ##########################
